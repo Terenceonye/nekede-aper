@@ -50,16 +50,44 @@
             color: white;
         }
 
+        #access-code-inputs input {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.brand-logo-sm {
+    display: none;
+    justify-content: center;
+    transform: translateY(50px);
+
+}
+
+/* media queries */
+
+@media (max-width: 768px) {
+    .logo-column {
+        display: none;
+        
+    }
+
+    .brand-logo-sm {
+        display: flex;
+    }
+}
+
 
     </style>
 </head>
 <body>
-  
+    <div class="brand-logo-sm"><img src="resources/img/brand-logo.png" alt=""></div>
     <div class="row">
-        <div class="col-md-6" style="background-color: #003366; border-radius: 10px;">
+        <div class="col-sm-12 col-md-6 col-lg-6 logo-column" style="background-color: #003366; border-radius: 10px;">
             <img src="resources/img/brand-logo.png" alt="Brand Logo" class="img-fluid mx-auto d-block my-5" data-aos="fade-right">
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-12 col-md-6 col-lg-6 other-column">
+            
             <div class="card aos-animate" data-aos="fade-left">
                 <h2 class="text-center">Staff Login</h2>
                 <!-- <p class="text-center">Enter your Login credentials below to access your dashboard.</p> -->
@@ -78,14 +106,26 @@
 
                 <div id="access-code-form" class="d-none">
                     <div class="mb-3">
-                        <label for="access-code" class="form-label">Enter Access Code</label>
-                        <input type="text" id="access-code" class="form-control" placeholder="Enter the code sent to your email" required>
+                        <label for="access-code" class="form-label text-center d-block" >Enter Access Code</label>
+                        <div id="access-code-inputs" class="d-flex justify-content-center gap-2">
+                            <input type="text" maxlength="1" class="form-control text-center" />
+                            <input type="text" maxlength="1" class="form-control text-center" />
+                            <input type="text" maxlength="1" class="form-control text-center" />
+                            <input type="text" maxlength="1" class="form-control text-center" />
+                            <input type="text" maxlength="1" class="form-control text-center" />
+                            <input type="text" maxlength="1" class="form-control text-center" />
+                        </div>
+                        <button id="verify-access-btn" class="btn bg-color w-100 my-3">Verify Access Code</button>
+                        <div id="error-message" class="alert alert-danger" role="alert" style="display: none;">Invalid Access Code</div>
+                        <div id="success-message" class="alert alert-success" role="alert" style="display: none;">Access Code Verified!</div>
+                        
                     </div>
-                    <button id="verify-access-btn" class="btn bg-color w-100">Verify Access Code</button>
+                    
                     <p class="text-center mt-2">
                         <a href="javascript:void(0)" id="resend-code-btn" style="color: #D1634A;">Resend Access Code</a>
                     </p>
                 </div>
+                
 
                 <div id="error-message" class="alert alert-danger mt-3">
                     Invalid email/password or access code. Please try again.
@@ -124,26 +164,44 @@
             }
         });
 
-        // Handle access code verification
-        document.getElementById('verify-access-btn').addEventListener('click', function() {
-            var accessCode = document.getElementById('access-code').value;
+     // Automatically move focus forward or backward on input
+document.querySelectorAll('#access-code-inputs input').forEach((input, index, inputs) => {
+    input.addEventListener('input', (e) => {
+        const value = e.target.value;
+        if (value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus(); // Move to the next input
+        }
+    });
 
-            // Simulate access code verification
-            if (accessCode !== '123456') {
-                document.getElementById('error-message').style.display = 'block';
-                setTimeout(() => { document.getElementById('error-message').style.display = 'none'; }, 5000);
-            } else {
-                document.getElementById('success-message').style.display = 'block';
-                setTimeout(() => {
-                    window.location.href = 'staff.html'; // Replace with your actual dashboard URL
-                }, 3000);
-            }
-        });
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            inputs[index - 1].focus(); // Move to the previous input
+        }
+    });
+});
 
-        // Resend access code functionality
-        document.getElementById('resend-code-btn').addEventListener('click', function() {
-            alert('Access Code has been resent to your email.');
-        });
+// Handle access code verification
+document.getElementById('verify-access-btn').addEventListener('click', function () {
+    const inputs = document.querySelectorAll('#access-code-inputs input');
+    let accessCode = '';
+    inputs.forEach(input => {
+        accessCode += input.value;
+    });
+
+    // Simulate access code verification
+    if (accessCode !== '123456') {
+        document.getElementById('error-message').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('error-message').style.display = 'none';
+        }, 5000);
+    } else {
+        document.getElementById('success-message').style.display = 'block';
+        setTimeout(() => {
+            window.location.href = 'staff.html'; // Replace with your actual dashboard URL
+        }, 3000);
+    }
+});
+
     </script>
 </body>
 </html>
