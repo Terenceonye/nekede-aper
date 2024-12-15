@@ -15,11 +15,23 @@
             background-color: #f8f9fa;
             overflow: hidden;
         }
-        .col-md-6 {
+        /* .col-md-6 {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: auto;
+        } */
+
+
+        .rowx {
+            display: flex;
+        }
+        .col-t {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: auto;
         }
         .card {
             border: none;
@@ -51,42 +63,63 @@
         }
 
         #access-code-inputs input {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    text-align: center;
-}
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        text-align: center;
+        }
 
-.brand-logo-sm {
-    display: none;
-    justify-content: center;
-    transform: translateY(50px);
+        .brand-logo-sm {
+            display: none;
+            justify-content: center;
+            transform: translateY(50px);
+            max-width: 200px;
+            width: 80%;
 
-}
+        }
 
-/* media queries */
+        .logo-column {
+            min-height: 100vh;
+        }
 
-@media (max-width: 768px) {
-    .logo-column {
-        display: none;
-        
-    }
+      
+        /* media queries */
 
-    .brand-logo-sm {
-        display: flex;
-    }
-}
+        @media (max-width: 768px) {
+            .logo-column {
+                display: none;
+                
+            }
+
+            .brand-logo-sm {
+                display: flex;
+            }
+
+            .other-column .card {
+                margin-top: 40px;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                
+            }
+        }
 
 
     </style>
 </head>
 <body>
-    <div class="brand-logo-sm"><img src="resources/img/brand-logo.png" alt=""></div>
-    <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 logo-column" style="background-color: #003366; border-radius: 10px;">
+    <div class="brand-logo-sm mb-5">
+        <img src="resources/img/brand-logo.png" alt="logo" width="100%">
+    </div>
+    <div class="rowx">
+        <div class="col-t logo-column" style="background-color: #003366; border-radius: 10px;">
             <img src="resources/img/brand-logo.png" alt="Brand Logo" class="img-fluid mx-auto d-block my-5" data-aos="fade-right">
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 other-column">
+        <div class="col-t other-column">
             
             <div class="card aos-animate" data-aos="fade-left">
                 <h2 class="text-center">Staff Login</h2>
@@ -104,7 +137,7 @@
                     <button id="submit-credentials-btn" class="btn bg-color w-100">Submit</button>
                 </div>
 
-                <div id="access-code-form" class="d-none">
+                <div id="access-code-form" class="d-none" style="margin: 10px;">
                     <div class="mb-3">
                         <label for="access-code" class="form-label text-center d-block" >Enter Access Code</label>
                         <div id="access-code-inputs" class="d-flex justify-content-center gap-2">
@@ -122,7 +155,7 @@
                     </div>
                     
                     <p class="text-center mt-2">
-                        <a href="javascript:void(0)" id="resend-code-btn" style="color: #D1634A;">Resend Access Code</a>
+                        <a href="javascript:void(0)" id="resend-code-btn" >Resend Access Code</a>
                     </p>
                 </div>
                 
