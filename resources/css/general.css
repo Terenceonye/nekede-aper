@@ -1,0 +1,77 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+.navbar {
+    background-color: #003366;
+}
+.navbar-brand {
+    color: white;
+    font-weight: bold;
+}
+.navbar-brand:hover {
+    color: #d1ecf1;
+}
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.welcome-banner {
+    background-color: #003366;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.footer {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+
+
+
+/* GENERAL FOR HOD, DEAN AND RECTOR */
+
+.review-table {
+    margin-top: 20px;
+}
+.btn-review {
+    background-color: #ffcc00;
+    color: white;
+    font-weight: bold;
+}
+.btn-review:hover {
+    background-color: #e6b800;
+}
+.badge-custom {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.attachments {
+    text-decoration: none;
+    margin-bottom: 2rem;
+    cursor: pointer;
+
+}
+
+/* Style to position the Font Awesome icon */
+.custom-select-wrapper {
+    position: relative;
+}
+
+.custom-select-wrapper select {
+    padding-right: 30px; /* Give space for the icon */
+}
+
+.custom-select-wrapper i {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Adjust as needed */
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensure the icon doesn't interfere with dropdown */
+}

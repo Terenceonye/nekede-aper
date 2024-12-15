@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit APER Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- general css -->
+     <link rel="stylesheet" href="resources/css/general.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .navbar-brand {
+            color: white;
+            font-weight: bold;
+        }
+        .navbar-brand:hover {
+            color: #d1ecf1;
+        }
+        .form-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .form-title {
+            color: #003366;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        .btn-primary {
+            background-color: #003366;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #00509e;
+        }
+    </style>
+</head>
+<body>
+    <!-- Placeholder for Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Form Section -->
+    <div class="container">
+        <div class="form-section" data-aos="fade-up">
+            <h2 class="form-title mb-4">Submit New APER Form</h2>
+            <form>
+                <!-- Staff Name -->
+                <div class="mb-3">
+                    <label for="staffName" class="form-label">Staff Name</label>
+                    <input type="text" class="form-control" id="staffName" placeholder="Enter your Full Name">
+                </div>
+
+                <!-- Department -->
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="department">
+                        <option selected disabled>Select your department</option>
+                        <option value="1">Human Resources</option>
+                        <option value="2">Finance</option>
+                        <option value="3">IT</option>
+                        <option value="4">Marketing</option>
+                    </select>
+                </div>
+
+                <!-- Category Selection -->
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category">
+                        <option selected disabled>Select category</option>
+                        <option value="academic">Academic Staff</option>
+                        <option value="senior_staff">Senior Staff (Non-Teaching Staff)</option>
+                        <option value="junior_staff">Junior Staff (Non-Teaching Staff)</option>
+                    </select>
+                </div>
+
+                <!-- Portfolio Selection -->
+                <div class="mb-3">
+                    <label for="portfolio" class="form-label">Portfolio</label>
+                    <select class="form-select" id="portfolio">
+                        <option selected disabled>Select portfolio</option>
+                        <option value="staff">Staff/Lecturer</option>
+                        <option value="hod">Head of Department/Unit</option>
+                        <option value="dean">Dean of School/Divisional Head</option>
+                        <option value="rector">Rector</option>
+                    </select>
+                </div>
+
+                <!-- Appraisal Year -->
+                <div class="mb-3">
+                    <label for="formYear" class="form-label">Appraisal Year</label>
+                    <input type="number" class="form-control" id="formYear" placeholder="Enter appraisal year">
+                </div>
+
+                <!-- Appraisal Type -->
+                <div class="mb-3">
+                    <label for="appraisalType" class="form-label">Appraisal Type</label>
+                    <select class="form-select" id="appraisalType">
+                        <option selected disabled>Select appraisal type</option>
+                        <option value="promotion">Promotion</option>
+                        <option value="conversion">Conversion</option>
+                        <option value="conversion">Annual Increment</option>
+                    </select>
+                </div>
+
+                <!-- Document Upload -->
+                <div class="mb-3">
+                    <label for="documentUpload" class="form-label">Upload APER Document</label>
+                    <input type="file" class="form-control" id="documentUpload" multiple>
+                </div>
+
+                <!-- Additional Comments -->
+                <div class="mb-3">
+                    <label for="comments" class="form-label">Additional Comments</label>
+                    <textarea class="form-control" id="comments" rows="4" placeholder="Enter any additional comments"></textarea>
+                </div>
+
+                <!-- Save and Submit Buttons -->
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-success">Save Progress</button>
+                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Placeholder for Footer -->
+   <div id="footer-placeholder"></div>
+
+   <script src="resources/js/script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

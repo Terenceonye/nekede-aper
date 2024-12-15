@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rector Review System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- general css -->
+     <link rel="stylesheet" href="resources/css/general.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+
+    #departmentSelectContainer, #staffReviewList, #reviewForm {
+                display: none;
+                margin-top: 20px;
+            }
+
+
+    </style>
+</head>
+<body class="py-4">
+    <!-- Placeholder for Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Banner -->
+    <div class="container mt-4" data-aos="fade-up">
+        <div class="welcome-banner text-center">
+            <h2>Welcome, Rector</h2>
+            <p>Review Staff Appraisals for Various Schools/Departments</p>
+        </div>
+    </div>
+
+
+    <!-- Form Selection -->
+    <div class="container" data-aos="fade-up">
+        <h3>Select Form Type for Review</h3>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-exchange-alt fa-3x mb-3"></i>
+                        <h5 class="card-title">Conversion Form</h5>
+                        <p class="card-text">Review Conversion forms from staff.</p>
+                        <a href="#" class="btn btn-primary">Review Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-check-square fa-3x mb-3"></i>
+                        <h5 class="card-title">Promotion Form</h5>
+                        <p class="card-text">Review Promotion forms.</p>
+                        <a href="#" class="btn btn-secondary">Review Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-file-alt fa-3x mb-3"></i>
+                        <h5 class="card-title">Annual Increment Form</h5>
+                        <p class="card-text">Review Annual Increment forms.</p>
+                        <a href="#" class="btn btn-warning">Review Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- School Selection -->
+    <div class="container mt-4">
+        <label for="schoolSelect" class="form-label">Select School/Division</label>
+        <select id="schoolSelect" class="form-select" onchange="loadDepartments()">
+            <option value="">Select School/Division</option>
+        </select>
+    </div>
+
+    <!-- Department Selection -->
+    <div id="departmentSelectContainer" class="container mt-4">
+        <label for="departmentSelect" class="form-label">Select Department</label>
+        <select id="departmentSelect" class="form-select" onchange="loadStaffSubmissions()">
+            <option value="">Select Department</option>
+        </select>
+    </div>
+
+    <!-- Staff Submissions Table -->
+    <div id="staffReviewList" class="container mt-4">
+        <h2>Staff Submissions</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Submission Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="staffTableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- Review Form -->
+    <!-- <div id="reviewForm" class="container mt-4">
+        <h2>Review Staff Submission</h2>
+        <p id="staffName"></p>
+        <p id="staffId"></p>
+        <p id="hodComments"></p>
+        <p id="deanComments"></p>
+
+        <div class="mb-3">
+            <label for="rectorComments" class="form-label">Your Comments</label>
+            <textarea id="rectorComments" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="rectorScore" class="form-label">Your Score</label>
+            <input type="number" id="rectorScore" class="form-control" min="0" max="100">
+        </div>
+
+        <div class="mb-3">
+            <label for="attachmentUpload" class="form-label">Upload Attachment</label>
+            <input type="file" id="attachmentUpload" class="form-control">
+        </div>
+
+        <button class="btn btn-primary" onclick="submitReview()">Submit Review</button>
+        <button class="btn btn-secondary" onclick="closeReviewForm()">Close</button>
+    </div> -->
+
+     <!-- Review Staff Form (Initially Hidden) -->
+    <div class="container mt-4" data-aos="fade-up" id="reviewForm" style="display: none;">
+        <h3>Review Staff APER Form</h3>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Part 1: Staff Information</h5>
+                <p id="staffName" class="card-text"></p>
+                <p id="staffId" class="card-text"></p>
+
+                <h5 class="card-title">Part 2: Staff Self-Assessment</h5>
+                <textarea class="form-control mb-3" rows="4" placeholder="Comments on self-assessment..." disabled></textarea>
+                <div>
+                    <i class="fas fa-download mb-3"></i>
+                    <a class="attachments mb-4" href="#">Click to Download Attachments</a>
+                </div>
+
+                <h5 class="card-title">Part 3: HOD Assessment</h5>
+                <p id="hodComments" class="card-text"></p>
+                <label for="hodScore">Score by HOD:</label>
+                <input type="number" id="hodScore" class="form-control mb-3" disabled>
+
+                <h5 class="card-title">Part 4: Dean's Comment</h5>
+                <textarea class="form-control mb-3" rows="4" placeholder="Provide your assessment comments..." disabled></textarea>
+
+                <h5 class="card-title">Part 5: Rector's Assessment</h5>
+                <div class="mb-3">
+                    <label for="rectorComments" class="form-label">Your Comments</label>
+                    <textarea id="rectorComments" class="form-control" rows="4" placeholder="Provide your comments..."></textarea>
+                </div>                
+
+                <!-- Buttons Container -->
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-secondary ms-2" onclick="closeReviewForm()">Close</button>
+                    <button class="btn btn-primary" onclick="submitReview()">Submit</button>      
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="resources/js/script.js"></script>
+
+
+    <script>
+        // Mock data
+        const departmentsData = {
+            "School of Engineering": ["Mechanical", "Electrical", "Civil"],
+            "School of Business": ["Finance", "Marketing", "HR"]
+        };
+    
+        const staffData = {
+            "Mechanical": [
+                { name: "John Doe", id: "M001", submissionDate: "2024-12-01", status: "Completed", hodComments: "Excellent performance", deanComments: "Agrees with HOD", hodScore: 85 },
+                { name: "Jane Smith", id: "M002", submissionDate: "2024-12-03", status: "Pending", hodComments: "Needs improvement", deanComments: "Aligns with HOD", hodScore: 60 }
+            ],
+            "Finance": [
+                { name: "Alice Brown", id: "F001", submissionDate: "2024-12-02", status: "Completed", hodComments: "Good", deanComments: "Well-done", hodScore: 75 }
+            ]
+        };
+    
+        // Populate school dropdown
+        const schoolSelect = document.getElementById("schoolSelect");
+        Object.keys(departmentsData).forEach(school => {
+            schoolSelect.innerHTML += `<option value="${school}">${school}</option>`;
+        });
+    
+        // Load departments based on school
+        function loadDepartments() {
+            const school = schoolSelect.value;
+            const departmentSelectContainer = document.getElementById("departmentSelectContainer");
+            const departmentSelect = document.getElementById("departmentSelect");
+    
+            if (school) {
+                departmentSelectContainer.style.display = 'block';
+                departmentSelect.innerHTML = '<option value="">Select Department</option>';
+                departmentsData[school].forEach(department => {
+                    departmentSelect.innerHTML += `<option value="${department}">${department}</option>`;
+                });
+            } else {
+                departmentSelectContainer.style.display = 'none';
+                departmentSelect.innerHTML = '';
+            }
+        }
+    
+        // Load staff submissions based on department
+        function loadStaffSubmissions() {
+            const department = document.getElementById("departmentSelect").value;
+            const staffReviewList = document.getElementById("staffReviewList");
+            const staffTableBody = document.getElementById("staffTableBody");
+    
+            if (department && staffData[department]) {
+                staffReviewList.style.display = 'block';
+                staffTableBody.innerHTML = '';
+                staffData[department].forEach((staff, index) => {
+                    staffTableBody.innerHTML += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${staff.name}</td>
+                            <td>${staff.submissionDate}</td>
+                            <td class="badge ${staff.status === 'Pending' ? 'bg-warning' : (staff.status === 'Completed' ? 'bg-success' : 'bg-danger')} badge-custom">${staff.status}</td>
+                            <td><button class="btn btn-review" onclick="loadReviewForm('${department}', ${index})">Review</button></td>
+                        </tr>
+                    `;
+                });
+            } else {
+                staffReviewList.style.display = 'none';
+                staffTableBody.innerHTML = '';
+            }
+        }
+    
+        // Load review form
+        function loadReviewForm(department, index) {
+            const staff = staffData[department][index];
+            document.getElementById("staffName").textContent = `Name: ${staff.name}`;
+            document.getElementById("staffId").textContent = `ID: ${staff.id}`;
+            document.getElementById("hodComments").textContent = staff.hodComments;
+            document.getElementById("reviewForm").style.display = 'block';
+        }
+    
+        // Close review form
+        function closeReviewForm() {
+            document.getElementById("reviewForm").style.display = 'none';
+        }
+    
+        // Submit review
+        function submitReview() {
+            const rectorComments = document.getElementById("rectorComments").value;
+            const rectorScore = document.getElementById("rectorScore").value;
+            const documentUpload = document.getElementById("documentUpload").files[0];
+    
+            if (!rectorComments || !rectorScore || !documentUpload) {
+                alert("Please fill all fields and upload the required document.");
+                return;
+            }
+    
+            alert("Review submitted successfully!");
+            closeReviewForm();
+        }
+    </script>
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
